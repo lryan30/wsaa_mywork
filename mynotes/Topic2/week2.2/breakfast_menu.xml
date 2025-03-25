@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<breakfast_menu>
+    <food>
+        <name>Full Irish</name>
+        <price9.95</price>
+        <description>Sausage, Bacon, Eggs, Black Pudding and controversionally beans and
+        chips</description><calories>1050</calories>
+    </food>
+    <food>
+        <name>Half Irish</name>
+        <price>6.95</price>
+        <description>Sausage, Bacon, Eggs, Black Pudding and controversionally beans</description>
+        <calories>750</calories>
+    </food>
+    <food>
+        <name>Porridge</name>
+        <price>6.95</price>
+        <description>Cooked oats with milk,nuts and berries</description>
+        <calories>450</calories>
+    </food>
+<breakfast_menu>
