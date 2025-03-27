@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <title>bit coin price</title>
+    </head>
+    <body>
+        <h3>The current bitcoin price in USD</h3>
+        <p id="bitcoinprice">price will go here</p>
+        <script>
+            theUrl = "https://api.coindesk.com/v1/bpi/currentprice.json"
+            var xhr = new XMLHttpRequest();
+            xhr.open( "GET", theUrl, true ); // false for synchronous request
+            xhr.responseType = 'json';
+            xhr.onload = function() {
+                data= xhr.response
+                
+                document.getElementById("bitcoinprice").innerHTML = data.bpi.USD.rate
+            }
+    
+            xhr.send( null );
+            
+
+        </script>
+    </body>
+</html>
+
+# This code will display the current price of bitcoin in USD on the webpage. It uses an XMLHttpRequest to fetch the data from the coindesk API and then updates the HTML element with the id "bitcoinprice" with the current price. The price will be displayed as soon as the page loads.
+# JAvascript is used to fetch the data from the API and update the HTML element with the price. The API used here is the coindesk API which provides the current price of bitcoin in USD. The price is then displayed on the webpage using the innerHTML property of the HTML element with the id "bitcoinprice".
+# The code uses an XMLHttpRequest to make an asynchronous GET request to the coindesk API. Once the data is fetched, the onload event is triggered, and the data is extracted from the response and displayed on the webpage.
+# The code is simple and straightforward, making it easy to understand and modify if needed. It can be used as a starting point for building more complex applications that fetch and display data from APIs.
+# The code can be improved by adding error handling, caching the data to reduce the number of API requests, and adding more features such as updating the price in real-time. Overall, it provides a good example of how to fetch and display data from an API using JavaScript.
