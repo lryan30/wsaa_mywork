@@ -7,7 +7,7 @@ from config import apikeys as cfg
 
 
 targeturl = 'https://en.wikipedia.org'
-apikey = "rQsO684C6mUsZH38JEjYXbzjXTFLe4qxnQzGnQbinYB4VPW3NSNpRjQPmpLLskgP"
+
 
 #apikey = cfg["htmltopdfkey"]  # API key for authentication
 # The API key is stored in a separate configuration file (config.py) for security and convenience.
