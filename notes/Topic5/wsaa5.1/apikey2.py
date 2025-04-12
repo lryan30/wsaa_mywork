@@ -1,6 +1,6 @@
 import requests
 import urllib.parse
-from config import apikeys as cfg
+from config2 import apikeys as cfg
 
 
 targeturl = 'https://example.com'

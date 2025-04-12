@@ -4,7 +4,7 @@
 # test that the PyGithub module is installed and working
 
 from github import Github
-import config as cfg  # This assumes config.py is in the same folder
+import config2 as cfg  # This assumes config.py is in the same folder
 import requests
 import urllib.parse
 

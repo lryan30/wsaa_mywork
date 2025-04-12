@@ -175,3 +175,4 @@ cython_debug/
 
 # config.py wont be sent to the server, so it is safe to include it in the repository.
 config.py 
+config2.py
