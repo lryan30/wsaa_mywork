@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mindful Planner</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Mindful Planner</h1>
+
+        <div class="quote-box">
+            <p id="quote-text">{{ quote.text }}</p>
+            <p id="quote-author">- {{ quote.author }}</p>
+        </div>
+
+        <!-- Form for task list or mood tracking will go here -->
+
+        <footer>
+            <p>Stay motivated and focused!</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

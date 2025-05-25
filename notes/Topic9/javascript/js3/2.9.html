@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <title>2.9</title>
+    </head>
+    <body>
+        <table>
+            <tr>
+                <td>First name:</td>
+                <td><input type="text" id="firstNameInput" placeholder="Enter first name"></td>
+            </tr>
+            <tr>
+                <td>Last name:</td>
+                <td><input type="text" id="lastNameInput" placeholder="Enter last name"></td>
+            </tr>
+            <tr>
+                <td>Age:</td>
+                <td><input type="text" id="ageInput" placeholder="Enter age"></td>
+            </tr>
+            <tr>
+                <td colspan="2"><button onclick="doForm()">Submit</button></td>
+            </tr>
+        </table>
+    </body>
+    <script>
+        function doRow(buttonElement) {
+            var row = buttonElement.parentElement.parentElement;
+            var firstName = row.querySelector('input[placeholder="Enter first name"]').value;
+            var lastName = row.querySelector('input[placeholder="Enter last name"]').value;
+            var age = row.querySelector('input[placeholder="Enter age"]').value;
+
+            console.log('Row data: ' + JSON.stringify({ firstName, lastName, age }));
+        }
+    
+    </script>
+</html>

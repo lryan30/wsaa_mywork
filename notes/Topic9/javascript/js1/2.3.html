@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Say Hello</title>
+</head>
+<body>
+    <input id="name" type="text" placeholder="Enter your name" />
+    <br/>
+    <button onclick="ButtonClicked()">Click Me</button>
+    <div id="output">Output will go here</div>
+
+    <script>
+        function ButtonClicked() {
+            var name = document.getElementById("name").value;
+            document.getElementById("output").innerText = "Hello, " + name + "!";
+        }
+    </script>
+</body>
+</html>

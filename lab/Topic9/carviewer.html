@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BookStore 2025</title>
+    <style>
+        #form-section {
+            display: none; /* Initially hide the form */
+            margin-top: 20px;
+        }
+
+        span button {
+            margin-right: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Bookstore</h1>
+    </header>
+
+    <!-- Create Book Button -->
+    <div id="create-button">
+        <button onclick="createBook()">Create Book</button>
+    </div>
+
+    <!-- Book Table -->
+    <div id="table-section">
+        <h2>Book List</h2>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>The Great Gatsby</td>
+                <td>F. Scott Fitzgerald</td>
+                <td>$10.99</td>
+                <td><a href="#">Edit</a> | <a href="#">Delete</a></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>1984</td>
+                <td>George Orwell</td>
+                <td>$8.99</td>
+                <td><a href="#">Edit</a> | <a href="#">Delete</a></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>To Kill a Mockingbird</td>
+                <td>Harper Lee</td>
+                <td>$12.50</td>
+                <td><a href="#">Edit</a> | <a href="#">Delete</a></td>
+            </tr>
+        </table>
+    </div>
+
+    
+    <div id="form-section">
+        <h2>Book Details</h2>
+
+        <label for="book-title">Book Title:</label>
+        <input type="text" id="book-title" name="book-title" required>
+        <br><br>
+
+        <label for="author-name">Author:</label>
+        <input type="text" id="author-name" name="author-name" required>
+        <br><br>
+
+        <label for="publish-year">Year of Publication:</label>
+        <input type="number" id="publish-year" name="publish-year" required>
+        <br><br>
+
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" step="0.01" required>
+        <br><br>
+
+        <!-- Buttons inside span (only one will be shown at a time) -->
+        <span>
+            <button id="save-button">Save</button>
+            <button id="update-button" style="display: none;">Update</button>
+        </span>
+    </div>
+
+    <script>
+       
+        function createBook() {
+            const formSection = document.getElementById('form-section');
+
+            if (formSection.style.display === 'none' || formSection.style.display === '') {
+                formSection.style.display = 'block';
+            } else {
+                formSection.style.display = 'none';
+            }
+        }
+    </script>
+
+</body>
+</html>

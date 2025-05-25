@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Task Manager</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+</head>
+<body>
+    <h1>Tasks</h1>
+
+    <div>
+        <button id="showCreateButton" onclick="showCreate()">Create Task</button>
+    </div>
+
+    <div>
+        <table class="table" id="taskTable">
+            <tr>
+                <th>id</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Due Date</th>
+                <th>Status</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+        </table>
+    </div>
+
+    <div id="createUpdateForm" style="display: none;">
+        <h2>
+            <span id="createLabel">Create a</span>
+            <span id="updateLabel">Update</span> Task
+        </h2>
+        <input type="hidden" name="id" />
+        Title: <input type="text" name="title" /><br/>
+        Description: <input type="text" name="description" /><br/>
+        Due Date: <input type="date" name="due_date" /><br/>
+        Status:
+        <select name="status">
+            <option>Pending</option>
+            <option>In Progress</option>
+            <option>Completed</option>
+        </select><br/>
+        <button id="doCreateButton" onclick="doCreate()">Create</button>
+        <button id="doUpdateButton" onclick="doUpdate()">Update</button>
+    </div>
+
+<script>
+    function showCreate() {
+        document.getElementById('showCreateButton').style.display = "none";
+        document.getElementById('taskTable').style.display = "none";
+        document.getElementById('createUpdateForm').style.display = "block";
+        document.getElementById('createLabel').style.display = "inline";
+        document.getElementById('updateLabel').style.display = "none";
+        document.getElementById('doCreateButton').style.display = "inline-block";
+        document.getElementById('doUpdateButton').style.display = "none";
+        clearForm();
+    }
+
+    function showViewAll() {
+        document.getElementById('showCreateButton').style.display = "inline-block";
+        document.getElementById('taskTable').style.display = "table";
+        document.getElementById('createUpdateForm').style.display = "none";
+    }
+
+    function showUpdate(buttonElement) {
+        showCreate();
+        document.getElementById('createLabel').style.display = "none";
+        document.getElementById('updateLabel').style.display = "inline";
+        document.getElementById('doCreateButton').style.display = "none";
+        document.getElementById('doUpdateButton').style.display = "inline-block";
+
+        var row = buttonElement.parentNode.parentNode;
+        var task = getTaskFromRow(row);
+        populateFormWithTask(task);
+    }
+
+    function doCreate() {
+        var form = document.getElementById('createUpdateForm');
+        var task = {
+            title: form.querySelector('input[name="title"]').value,
+            description: form.querySelector('input[name="description"]').value,
+            due_date: form.querySelector('input[name="due_date"]').value,
+            status: form.querySelector('select[name="status"]').value
+        };
+        createTaskAjax(task);
+    }
+
+    function doUpdate() {
+        var task = getTaskFromForm();
+        updateTaskAjax(task);
+        var row = document.getElementById(task.id);
+        setTaskInRow(row, task);
+        clearForm();
+        showViewAll();
+    }
+
+    function doDelete(buttonElem) {
+        var row = buttonElem.parentNode.parentNode;
+        var index = row.rowIndex;
+        deleteTaskAjax(row.getAttribute("id"));
+        document.getElementById('taskTable').deleteRow(index);
+    }
+
+    function addTaskToTable(task) {
+        var table = document.getElementById('taskTable');
+        var row = table.insertRow(-1);
+        row.setAttribute('id', task.id);
+
+        row.insertCell(0).textContent = task.id;
+        row.insertCell(1).textContent = task.title;
+        row.insertCell(2).textContent = task.description;
+        row.insertCell(3).textContent = task.due_date;
+        row.insertCell(4).textContent = task.status;
+        row.insertCell(5).innerHTML = '<button onclick="showUpdate(this)">Update</button>';
+        row.insertCell(6).innerHTML = '<button onclick="doDelete(this)">Delete</button>';
+    }
+
+    function clearForm() {
+        var form = document.getElementById('createUpdateForm');
+        form.querySelector('input[name="id"]').value = '';
+        form.querySelector('input[name="title"]').value = '';
+        form.querySelector('input[name="description"]').value = '';
+        form.querySelector('input[name="due_date"]').value = '';
+        form.querySelector('select[name="status"]').value = 'Pending';
+    }
+
+    function getTaskFromRow(row) {
+        return {
+            id: parseInt(row.cells[0].textContent),
+            title: row.cells[1].textContent,
+            description: row.cells[2].textContent,
+            due_date: row.cells[3].textContent,
+            status: row.cells[4].textContent
+        };
+    }
+
+    function populateFormWithTask(task) {
+        var form = document.getElementById('createUpdateForm');
+        form.querySelector('input[name="id"]').value = task.id;
+        form.querySelector('input[name="title"]').value = task.title;
+        form.querySelector('input[name="description"]').value = task.description;
+        form.querySelector('input[name="due_date"]').value = task.due_date;
+        form.querySelector('select[name="status"]').value = task.status;
+    }
+
+    function getTaskFromForm() {
+        var form = document.getElementById('createUpdateForm');
+        return {
+            id: parseInt(form.querySelector('input[name="id"]').value),
+            title: form.querySelector('input[name="title"]').value,
+            description: form.querySelector('input[name="description"]').value,
+            due_date: form.querySelector('input[name="due_date"]').value,
+            status: form.querySelector('select[name="status"]').value
+        };
+    }
+
+    // Ajax calls
+
+    function createTaskAjax(task) {
+        $.ajax({
+            type: "POST",
+            url: "/tasks",
+            data: JSON.stringify(task),
+            contentType: "application/json",
+            success: function (data) {
+                addTaskToTable(data);
+                clearForm();
+                showViewAll();
+            },
+            error: function () {
+                alert("Failed to create task");
+            }
+        });
+    }
+
+    function updateTaskAjax(task) {
+        $.ajax({
+            type: "PUT",
+            url: "/tasks/" + task.id,
+            data: JSON.stringify(task),
+            contentType: "application/json",
+            success: function (data) {
+                // No need to reload, update row directly
+            },
+            error: function () {
+                alert("Failed to update task");
+            }
+        });
+    }
+
+    function deleteTaskAjax(id) {
+        $.ajax({
+            type: "DELETE",
+            url: "/tasks/" + id,
+            success: function () {},
+            error: function () {
+                alert("Failed to delete task");
+            }
+        });
+    }
+
+    // On page load, load all tasks
+    $(document).ready(function () {
+        $.ajax({
+            url: "/tasks",
+            success: function (tasks) {
+                tasks.forEach(task => addTaskToTable(task));
+            },
+            error: function () {
+                alert("Failed to load tasks");
+            }
+        });
+    });
+</script>
+</body>
+</html>

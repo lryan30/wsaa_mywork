@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>2.9</title>
+</head>
+<body>
+    <table id="table">
+        <tr>
+            <td>First name:</td>
+            <td><input type="text" id="firstNameInput" placeholder="Enter first name"></td>
+        </tr>
+        <tr>
+            <td>Last name:</td>
+            <td><input type="text" id="lastNameInput" placeholder="Enter last name"></td>
+        </tr>
+        <tr>
+            <td>Age:</td>
+            <td><input type="text" id="ageInput" placeholder="Enter age"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><button onclick="submitForm()">Submit</button></td>
+        </tr>
+    </table>
+    <button onclick="createRow()">Add Row</button>
+
+    <script>
+        function submitForm() {
+            const firstName = document.getElementById('firstNameInput').value;
+            const lastName = document.getElementById('lastNameInput').value;
+            const age = document.getElementById('ageInput').value;
+            console.log('Form submitted:', { firstName, lastName, age });
+        }
+
+        function doRow(buttonElement) {
+            var row = buttonElement.parentElement.parentElement;
+            var firstName = row.querySelector('input[placeholder="Enter first name"]').value;
+            var lastName = row.querySelector('input[placeholder="Enter last name"]').value;
+            var age = row.querySelector('input[placeholder="Enter age"]').value;
+
+            console.log('Row data:', { firstName, lastName, age });
+        }
+
+        function createRow() {
+            var table = document.getElementById('table');
+            var data = {
+                cell1: 'hi',
+                cell2: 'bye',
+                cell3: 'thanks for the fish'
+            };
+
+            var rowElement = table.insertRow(-1);
+
+            var cellElement = rowElement.insertCell(0);
+            cellElement.innerHTML = data.cell1;
+
+            cellElement = rowElement.insertCell(1);
+            cellElement.innerHTML = data.cell2;
+
+            cellElement = rowElement.insertCell(2);
+            cellElement.innerHTML = data.cell3;
+
+            cellElement = rowElement.insertCell(3);
+            cellElement.innerHTML = '<button onclick="doRow(this)">Log Row</button>';
+        }
+    </script>
+</body>
+</html>

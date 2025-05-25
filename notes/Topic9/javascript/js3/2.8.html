@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <title>2.8</title>
+    </head>
+    <body>
+        <div id = 'myForm'>
+            <h1>Form</h1>
+            First name: <input type="text" id="firstNameInput" placeholder="Enter first name">
+            <br>
+            Last name: <input type="text" id="lastNameInput" placeholder="Enter last name">
+            <br>
+            Age: <input type="text" name='Age' id="ageInput" placeholder="Enter age">
+            <br>
+            <button onclick="doForm()">Submit</button>
+        <br>
+
+
+     
+        <script>
+            function doForm() {
+                var employee = {}
+                var form = document.getElementById('myForm')
+                employee.firstName = form.querySelector('Input[name="firstName"]').value
+                employee.lastName = form.querySelector('Input[name="lastName"]').value
+                employee.age = form.querySelector('Input[name="age"]').value
+                console.log('form data'+JSON.stringify(employee))
+
+                
+
+            }        
+        </script>
+
+    </body> 
+</html>
